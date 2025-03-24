@@ -1,3 +1,5 @@
+# argocd-silver
+
 
 📦 argocd-silver/
 ├── 📂 k8s/                  # Diretório com os manifestos Kubernetes
