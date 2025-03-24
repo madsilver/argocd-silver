@@ -16,3 +16,28 @@
 │   └── templates/
 └── README.md                # Documentação do repositório
 ```
+
+## Access
+
+### Load Balancer
+
+```sh
+kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+```
+
+### Node Port
+
+```SH
+kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "NodePort"}}'
+
+```
+
+### Port Forward
+
+```sh
+kubectl port-forward svc/argocd-server -n argocd 8080:443
+```
+
+```sh
+kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode
+```
