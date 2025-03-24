@@ -9,7 +9,6 @@ spec:
   ports:
     - name: http  # Nome da porta
       protocol: TCP
-      port: 3000  # Porta externa
+      port: 7000  # Porta externa
       targetPort: 8083  # Porta do container
-      nodePort: 30080
-  type: NodePort  # Expondo a porta
+  type: ClusterIP  # Expondo a porta
