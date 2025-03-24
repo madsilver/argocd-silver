@@ -1,6 +1,6 @@
 # argocd-silver
 
-
+```
 📦 argocd-silver/
 ├── 📂 k8s/                  # Diretório com os manifestos Kubernetes
 │   ├── deployment.yaml      # Deployment da aplicação
@@ -15,3 +15,4 @@
 │   ├── values.yaml
 │   └── templates/
 └── README.md                # Documentação do repositório
+```
