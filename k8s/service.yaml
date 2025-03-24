@@ -8,6 +8,7 @@ spec:
     app: podinfo
   ports:
     - protocol: TCP
-      port: 8082
-      targetPort: 8082
-  type: ClusterIP
+      port: 3000
+      targetPort: 8083
+      nodePort: 30080
+  type: NodePort
