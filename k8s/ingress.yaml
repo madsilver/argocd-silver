@@ -1,17 +1,17 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: minha-app
+  name: podinfo
   namespace: default
 spec:
   rules:
-    - host: minha-app.meudominio.com
+    - host: podinfo.com
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: minha-app
+                name: podinfo
                 port:
                   number: 80

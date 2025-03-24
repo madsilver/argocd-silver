@@ -1,13 +1,13 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: minha-app-hpa
+  name: podinfo-hpa
   namespace: default
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: minha-app
+    name: podinfo
   minReplicas: 2
   maxReplicas: 10
   metrics:
