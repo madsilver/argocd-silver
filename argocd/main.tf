@@ -13,7 +13,7 @@ resource "kubernetes_manifest" "argocd_application" {
     spec = {
       project = "default"
       source = {
-        repoURL        = "https://github.com/seu-repo.git"
+        repoURL        = "https://github.com/madsilver/argocd-silver.git"
         targetRevision = "main"
         path           = "k8s"
       }
