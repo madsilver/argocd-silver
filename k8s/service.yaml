@@ -7,8 +7,9 @@ spec:
   selector:
     app: podinfo
   ports:
-    - protocol: TCP
-      port: 3000
-      targetPort: 8083
+    - name: http  # Nome da porta
+      protocol: TCP
+      port: 3000  # Porta externa
+      targetPort: 8083  # Porta do container
       nodePort: 30080
-  type: NodePort
+  type: NodePort  # Expondo a porta
