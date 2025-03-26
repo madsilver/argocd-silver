@@ -26,6 +26,7 @@ resource "kubernetes_manifest" "argocd_application" {
           prune    = true
           selfHeal = true
         }
+        syncOptions = ["CreateNamespace=true", "ApplyOutOfSyncOnly=true"]
       }
     }
   }
