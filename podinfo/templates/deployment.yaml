@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  namespace: default
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Release.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 9898
+          env:
+            - name: NODE_ENV
+              value: "development"
+            - name: PODINFO_UI_COLOR
+              value: "#cccccc" #34577c
+          livenessProbe:
+            exec:
+              command:
+              - podcli
+              - check
+              - http
+              - localhost:9898/healthz
+            initialDelaySeconds: 5
+            timeoutSeconds: 5
+          readinessProbe:
+            exec:
+              command:
+              - podcli
+              - check
+              - http
+              - localhost:9898/readyz
+            initialDelaySeconds: 5
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 2000m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 64Mi

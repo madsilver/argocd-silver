@@ -1,0 +1,15 @@
+replicaCount: 4
+
+image:
+  repository: ghcr.io/stefanprodan/podinfo
+  tag: 6.6.2
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP  # Pode ser LoadBalancer, NodePort ou ClusterIP
+  port: 7000         # Porta do serviço
+  targetPort: 9898 # Porta do container (deve coincidir com o Deployment)
+
+config:
+  APP_ENV: "development"
+  LOG_LEVEL: "info"
