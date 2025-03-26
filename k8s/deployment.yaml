@@ -22,7 +22,7 @@ spec:
             - name: NODE_ENV
               value: "development"
             - name: PODINFO_UI_COLOR
-              value: "#cccccc"
+              value: "#cccccc" #34577c
           livenessProbe:
             exec:
               command:
