@@ -68,3 +68,15 @@ helm upgrade --install podinfo-stg ./podinfo -f values.yaml -f envs/staging/valu
 
 helm upgrade --install podinfo-prd ./podinfo -f values.yaml -f envs/production/values.yaml --namespace production
 ```
+
+## Terraform
+
+### Deploy
+
+```sh
+# Staging
+terraform apply -auto-approve -var="environment=staging"
+
+# Production
+terraform apply -auto-approve -var="environment=production"
+```
