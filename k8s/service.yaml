@@ -11,5 +11,5 @@ spec:
       protocol: TCP
       port: 7000  # Porta externa
       targetPort: 9898  # Porta do container
-      nodePort: 30070
+      #nodePort: 30070
   type: NodePort  # Expondo a porta
