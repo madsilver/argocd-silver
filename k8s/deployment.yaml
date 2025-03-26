@@ -21,5 +21,28 @@ spec:
           env:
             - name: NODE_ENV
               value: "development"
-            - name: PODINFO_UI_COLOR
-              value: "#34577c"
+          livenessProbe:
+            exec:
+              command:
+              - podcli
+              - check
+              - http
+              - localhost:9898/healthz
+            initialDelaySeconds: 5
+            timeoutSeconds: 5
+          readinessProbe:
+            exec:
+              command:
+              - podcli
+              - check
+              - http
+              - localhost:9898/readyz
+            initialDelaySeconds: 5
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 2000m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 64Mi
