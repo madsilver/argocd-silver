@@ -21,3 +21,5 @@ spec:
           env:
             - name: NODE_ENV
               value: "development"
+            - name: PODINFO_UI_COLOR
+              value: "#34577c"
