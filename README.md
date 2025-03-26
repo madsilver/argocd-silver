@@ -41,3 +41,42 @@ kubectl port-forward svc/argocd-server -n argocd 8080:443
 ```sh
 kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode
 ```
+
+## Argo
+
+```sh
+kubectl delete application podinfo -n argocd
+```
+
+
+## Helm
+
+```sh
+# create
+helm create podinfo
+# install
+helm install podinfo ./podinfo
+# atualizar
+helm upgrade podinfo ./podinfo # Se modificar algo no values.yaml
+# remover
+helm uninstall podinfo
+
+# mudar a env
+helm upgrade podinfo ./podinfo --set config.APP_ENV=production
+
+helm upgrade --install podinfo-stg ./podinfo -f values.yaml -f envs/staging/values.yaml --namespace staging
+
+helm upgrade --install podinfo-prd ./podinfo -f values.yaml -f envs/production/values.yaml --namespace production
+```
+
+## Terraform
+
+### Deploy
+
+```sh
+# Staging
+terraform apply -auto-approve -var="environment=staging"
+
+# Production
+terraform apply -auto-approve -var="environment=production"
+```

@@ -1,0 +1,4 @@
+replicaCount: 2
+environment: "staging"
+image:
+  tag: "staging"

@@ -7,25 +7,29 @@ resource "kubernetes_manifest" "argocd_application" {
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "Application"
     metadata = {
-      name      = "minha-app"
+      name      = "podinfo-${var.environment}"
       namespace = "argocd"
     }
     spec = {
       project = "default"
       source = {
         repoURL        = "https://github.com/madsilver/argocd-silver.git"
-        targetRevision = "main"
-        path           = "k8s"
+        targetRevision = "${var.branch}"
+        path           = "podinfo"
+        helm = {
+          valueFiles = ["envs/${var.environment}/values.yaml"]
+        }
       }
       destination = {
         server    = "https://kubernetes.default.svc"
-        namespace = "default"
+        namespace = var.environment
       }
       syncPolicy = {
         automated = {
           prune    = true
           selfHeal = true
         }
+        syncOptions = ["CreateNamespace=true", "ApplyOutOfSyncOnly=true"]
       }
     }
   }
