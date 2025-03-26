@@ -1,21 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: podinfo
+  name: {{ .Release.Name }}
   namespace: default
 spec:
-  replicas: 2
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: podinfo
+      app: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: podinfo
+        app: {{ .Release.Name }}
     spec:
       containers:
-        - name: podinfo
-          image: ghcr.io/stefanprodan/podinfo:6.6.2
+        - name: {{ .Release.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 9898
           env:

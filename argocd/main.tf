@@ -14,8 +14,8 @@ resource "kubernetes_manifest" "argocd_application" {
       project = "default"
       source = {
         repoURL        = "https://github.com/madsilver/argocd-silver.git"
-        targetRevision = "podinfo"
-        path           = "k8s"
+        targetRevision = "helm"
+        path           = "podinfo"
       }
       destination = {
         server    = "https://kubernetes.default.svc"
