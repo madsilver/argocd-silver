@@ -63,4 +63,8 @@ helm uninstall podinfo
 
 # mudar a env
 helm upgrade podinfo ./podinfo --set config.APP_ENV=production
+
+helm upgrade --install podinfo-stg ./podinfo -f values.yaml -f envs/staging/values.yaml --namespace staging
+
+helm upgrade --install podinfo-prd ./podinfo -f values.yaml -f envs/production/values.yaml --namespace production
 ```
