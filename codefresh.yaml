@@ -25,7 +25,7 @@ steps:
   build_image:
     title: "Construindo Imagem Docker"
     type: "build"
-    image_name: "seu-usuario/docker-repo"
+    image_name: "picolotec/datalbus-backend-argocd"
     tag: "${{CF_SHORT_REVISION}}"
     dockerfile: "Dockerfile"
     working_directory: "./"
