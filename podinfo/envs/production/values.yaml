@@ -1,7 +1,7 @@
 replicaCount: 4
 environment: "production"
 image:
-  tag: "stable"
+  tag: "6.6.2"
 resources:
   limits:
     cpu: "1000m"

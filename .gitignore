@@ -1,1 +1,4 @@
 argocd/.terraform
+argocd/.terraform.lock.hcl
+argocd/terraform.tfstate
+argocd/terraform.tfstate.backup
