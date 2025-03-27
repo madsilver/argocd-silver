@@ -1,3 +1,6 @@
+.DS_Store
+argocd/.DS_Store
+
 argocd/.terraform
 argocd/.terraform.lock.hcl
 argocd/terraform.tfstate
