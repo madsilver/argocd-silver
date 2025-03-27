@@ -7,7 +7,7 @@ resource "kubernetes_manifest" "argocd_application" {
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "Application"
     metadata = {
-      name      = "podinfo-${var.environment}"
+      name      = "${var.app}-${var.environment}"
       namespace = "argocd"
     }
     spec = {
@@ -15,7 +15,7 @@ resource "kubernetes_manifest" "argocd_application" {
       source = {
         repoURL        = "https://github.com/madsilver/argocd-silver.git"
         targetRevision = "${var.branch}"
-        path           = "podinfo"
+        path           = "${var.app}"
         helm = {
           valueFiles = ["envs/${var.environment}/values.yaml"]
         }

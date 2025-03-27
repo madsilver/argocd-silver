@@ -1,5 +1,11 @@
+variable "app" {
+  description = ""
+  type        = string
+  default     = "datalbus"
+}
+
 variable "environment" {
-  description = "Ambiente para o deploy (staging ou production)"
+  description = ""
   type        = string
   default     = "staging"
 }

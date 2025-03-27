@@ -45,7 +45,7 @@ kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.pas
 ## Argo
 
 ```sh
-kubectl delete application podinfo -n argocd
+kubectl delete application datalbus -n argocd
 ```
 
 
@@ -53,20 +53,20 @@ kubectl delete application podinfo -n argocd
 
 ```sh
 # create
-helm create podinfo
+helm create datalbus
 # install
-helm install podinfo ./podinfo
+helm install datalbus ./datalbus
 # atualizar
-helm upgrade podinfo ./podinfo # Se modificar algo no values.yaml
+helm upgrade datalbus ./datalbus # Se modificar algo no values.yaml
 # remover
-helm uninstall podinfo
+helm uninstall datalbus
 
 # mudar a env
-helm upgrade podinfo ./podinfo --set config.APP_ENV=production
+helm upgrade datalbus ./datalbus --set config.APP_ENV=production
 
-helm upgrade --install podinfo-stg ./podinfo -f values.yaml -f envs/staging/values.yaml --namespace staging
+helm upgrade --install datalbus-stg ./datalbus -f values.yaml -f envs/staging/values.yaml --namespace staging
 
-helm upgrade --install podinfo-prd ./podinfo -f values.yaml -f envs/production/values.yaml --namespace production
+helm upgrade --install datalbus-prd ./datalbus -f values.yaml -f envs/production/values.yaml --namespace production
 ```
 
 ## Terraform

@@ -1,0 +1,63 @@
+version: "1.0"
+stages:
+  - clone
+  - test
+  - build
+  - push
+  - deploy
+
+steps:
+  clone_repo:
+    title: "Clonando Repositório"
+    type: "git-clone"
+    repo: "picolotec/datalbus-backend"
+    revision: "main"
+    stage: "clone"
+
+  run_tests:
+    title: "Executando Testes"
+    image: php:8.1-cli
+    commands:
+      - composer install
+      - php artisan test
+    stage: "test"
+
+  build_image:
+    title: "Construindo Imagem Docker"
+    type: "build"
+    image_name: "seu-usuario/docker-repo"
+    tag: "${{CF_SHORT_REVISION}}"
+    dockerfile: "Dockerfile"
+    working_directory: "./"
+    stage: "build"
+
+  push_image:
+    title: "Publicando Imagem no Docker Hub"
+    type: "push"
+    candidate: "${{build_image}}"
+    stage: "push"
+    registry: "docker.io"
+    username: "${{DOCKERHUB_USERNAME}}"
+    password: "${{DOCKERHUB_PASSWORD}}"
+
+  update_argocd:
+    title: "Atualizando ArgoCD"
+    image: alpine/git
+    commands:
+      - git config --global user.email "ci@codefresh.io"
+      - git config --global user.name "Codefresh CI"
+      - git clone https://x-access-token:${{BITBUCKET_ACCESS_TOKEN}}@bitbucket.org/seu-usuario/argocd-manifestos.git
+      - cd argocd-manifestos
+      #- sed -i 's|image: .*|image: seu-usuario/docker-repo:${{CF_SHORT_REVISION}}|' deployment.yaml
+      - sed -i 's/tag:.*/tag: ${{CF_SHORT_REVISION}}/' helm/values.yaml
+      - git add deployment.yaml
+      - git commit -m "Atualizando imagem para versão ${{CF_SHORT_REVISION}}"
+      - git push origin main
+    stage: "deploy"
+
+  sync_argocd:
+    title: "Forçando Sync no ArgoCD"
+    image: bitnami/kubectl
+    commands:
+      - argocd app sync nome-da-sua-app
+    stage: "deploy"
