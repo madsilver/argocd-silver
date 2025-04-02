@@ -45,6 +45,11 @@ kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.pas
 ## Argo
 
 ```sh
+# staging
+terraform apply -auto-approve -var="environment=staging"
+# production
+terraform apply -auto-approve -var="environment=production" -var="branch=main"
+# delete argocd application
 kubectl delete application datalbus -n argocd
 ```
 
@@ -63,9 +68,7 @@ helm uninstall datalbus
 
 # mudar a env
 helm upgrade datalbus ./datalbus --set config.APP_ENV=production
-
 helm upgrade --install datalbus-stg ./datalbus -f values.yaml -f envs/staging/values.yaml --namespace staging
-
 helm upgrade --install datalbus-prd ./datalbus -f values.yaml -f envs/production/values.yaml --namespace production
 ```
 
