@@ -1,4 +1,4 @@
 replicaCount: 2
 environment: "staging"
 image:
-  tag: "6.6.2"
+  tag: "6.8.0"

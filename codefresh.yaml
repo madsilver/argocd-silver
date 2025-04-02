@@ -7,15 +7,18 @@ stages:
   - deploy
 
 steps:
-  clone_repo:
-    title: "Clonando Repositório"
+  clone:
+    title: "Cloning Repository"
     type: "git-clone"
     repo: "picolotec/datalbus-backend"
-    revision: "main"
+    # CF_BRANCH value is auto set when pipeline is triggered
+    # Learn more at codefresh.io/docs/docs/codefresh-yaml/variables/
+    revision: "${{CF_BRANCH}}"
+    git: "bitbucket"
     stage: "clone"
 
   run_tests:
-    title: "Executando Testes"
+    title: "Running Test"
     image: php:8.1-cli
     commands:
       - composer install
@@ -23,16 +26,16 @@ steps:
     stage: "test"
 
   build_image:
-    title: "Construindo Imagem Docker"
+    title: "Building Docker Image"
     type: "build"
-    image_name: "seu-usuario/docker-repo"
+    image_name: "picolotec/datalbus-backend-argocd"
     tag: "${{CF_SHORT_REVISION}}"
     dockerfile: "Dockerfile"
-    working_directory: "./"
+    working_directory: "${{clone}}" # Running command where code cloned
     stage: "build"
 
   push_image:
-    title: "Publicando Imagem no Docker Hub"
+    title: "Publishing Image"
     type: "push"
     candidate: "${{build_image}}"
     stage: "push"
@@ -55,9 +58,9 @@ steps:
       - git push origin main
     stage: "deploy"
 
-  sync_argocd:
-    title: "Forçando Sync no ArgoCD"
-    image: bitnami/kubectl
-    commands:
-      - argocd app sync nome-da-sua-app
-    stage: "deploy"
+  # sync_argocd:
+  #   title: "Forçando Sync no ArgoCD"
+  #   image: bitnami/kubectl
+  #   commands:
+  #     - argocd app sync nome-da-sua-app
+  #   stage: "deploy"

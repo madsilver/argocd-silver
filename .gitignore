@@ -1,5 +1,6 @@
 .DS_Store
 argocd/.DS_Store
+.idea
 
 argocd/.terraform
 argocd/.terraform.lock.hcl
